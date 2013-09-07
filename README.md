@@ -23,9 +23,9 @@ public class TestController : ApiController {
 Require<OwinSelfHost>();
 
 var webApi = Require<WebApiOwin>();
-webApi.CreateServer();
+var config = webApi.Create();
 
-using ( OwinSelfHost.CreateServer("http://localhost:8080", webApi) ) {
+using ( OwinSelfHost.CreateServer("http://localhost:8080", app => app.UseWebApi(config) ) ) {
 	Console.WriteLine("Listening...");
 	Console.ReadLine();
 }

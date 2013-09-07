@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Owin.Hosting;
+using Owin;
 using ScriptCs.Contracts;
 
 namespace ScriptCs.Owin
@@ -12,7 +13,7 @@ namespace ScriptCs.Owin
         /// <param name="baseAddress">The base address to use for the OWIN pipeline</param>
         /// <param name="startup">Optional components to be used in the OWIN pipline</param>
         /// <returns>A disposable instance of the server</returns>
-        public static IDisposable CreateServer(string baseAddress, params IOwinStartup[] startup)
+        public static IDisposable CreateServer(string baseAddress, params Action<IAppBuilder>[] startup)
         {
             return WebApp.Start(baseAddress, ab =>
             {
@@ -23,7 +24,7 @@ namespace ScriptCs.Owin
 
                 foreach (var action in startup)
                 {
-                    action.Use(ab);
+                    action(ab);
                 }
             });
         }
