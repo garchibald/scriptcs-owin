@@ -13,6 +13,10 @@ Owin self hosted HTTP server within scriptcs
 
 ## Getting started with OWIN using the pack
 
+* Copy and paste following block into script.csx
+* scriptcs -install ScriptCs.Owin -pre
+* scriptcs -install ScriptCs.WebApi -pre
+
 ```csharp
 public class TestController : ApiController {
 	public string Get { 
@@ -22,7 +26,7 @@ public class TestController : ApiController {
 
 Require<OwinSelfHost>();
 
-var webApi = Require<WebApiOwin>();
+var webApi = Require<WebApi>();
 var config = webApi.Create();
 
 using ( OwinSelfHost.CreateServer("http://localhost:8080", app => app.UseWebApi(config) ) ) {
@@ -31,7 +35,6 @@ using ( OwinSelfHost.CreateServer("http://localhost:8080", app => app.UseWebApi(
 }
 
 ```
-* Install the dependencies ```scriptcs -install -pre```
 * Running as admin type ```scriptcs start.csx``` to launch the app.
 * Open a browser to "http://localhost:8080/api/test";
 * That's it, your OWIN self hosted server is running with webapi
